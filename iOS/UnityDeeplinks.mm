@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-// Include Unity types from the Unity app itself:
 #import "AppDelegateListener.h"
-#import "UnityAppController.h"
+#import "UnityDeeplinks.h"
 
 
 
@@ -31,26 +30,6 @@ extern "C" {
 - (void)onNotification:(NSNotification*)notification;
 - (void)onOpenURL:(NSNotification *)notification;
 @end
-
-
-
-@interface UnityDeeplinksAppController : UnityAppController
-{
-}
-// Temporary properties to store any deeplink information from UIApplicationDelegate.
-// We use those only in case the UIApplicationDelegate started before the Unity controllers,
-// which occurs when a deeplink is activated while the Unity app is not running:
-@property id annotation;
-@property NSString* sourceApplication;
-@property NSDictionary* options;
-@property NSURL* deeplink;
-
-// Properties that hold the Unity object/method name to call upon deeplink:
-@property NSString* gameObjectName;
-@property NSString* deeplinkMethodName;
-
-@end
-
 
 
 @implementation UnityDeeplinksNotificationObserver
@@ -126,9 +105,9 @@ extern "C" {
 
 @end
 
-
+// Comment out IMPL_APP_CONTROLLER_SUBCLASS to avoid multiple IMPL_APP_CONTROLLER_SUBCLASS call
 // Tell Unity to use UnityDeeplinksAppController as the main app controller:
-IMPL_APP_CONTROLLER_SUBCLASS(UnityDeeplinksAppController)
+//IMPL_APP_CONTROLLER_SUBCLASS(UnityDeeplinksAppController)
 
 
 
